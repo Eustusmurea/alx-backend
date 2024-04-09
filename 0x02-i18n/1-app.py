@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-'''Basic Flask app
-'''
+"""Basic Flask app
+"""
 
 from flask import Flask, render_template
 from flask_babel import Babel
@@ -10,7 +10,7 @@ babel = Babel(app)
 
 
 class Config:
-    '''Config class'''
+    """Config class"""
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
     BABE_DEFAULT_TIMEZONE = "UTC"
@@ -21,7 +21,7 @@ app.config.from_object(Config)
 
 @app.route('/')
 def index():
-    '''default route'''
+    """default route"""
     return render_template('1-index.html')
 
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-'''Infer appropriate time zone
-'''
+"""Infer appropriate time zone
+"""
 
 from typing import Dict, Union
 from flask import Flask, render_template, request, g
@@ -9,7 +9,7 @@ import pytz
 
 
 class Config:
-    '''Config class'''
+    """Config class"""
 
     DEBUG = True
     LANGUAGES = ["en", "fr"]
@@ -46,7 +46,6 @@ def before_request() -> None:
     g.user = get_user()
 
 
-@babel.localeselector
 def get_locale() -> str:
     """Retrieves the locale for a web page.
 
@@ -64,7 +63,9 @@ def get_locale() -> str:
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-@babel.timezoneselector
+babel.init_app(app, locale_selector=get_locale)
+
+
 def get_timezone() -> str:
     """Retrieves the timezone for a web page.
     """
@@ -79,11 +80,11 @@ def get_timezone() -> str:
 
 @app.route('/')
 def index() -> str:
-    '''default route
+    """default route
 
     Returns:
         html: homepage
-    '''
+    """
     return render_template("7-index.html")
 
 
