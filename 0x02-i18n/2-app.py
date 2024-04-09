@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-'''Get locale from request'''
+"""Get locale from request"""
 
 from flask import Flask, render_template, request
 from flask_babel import Babel
@@ -9,7 +9,7 @@ babel = Babel(app)
 
 
 class Config:
-    '''Config class'''
+    """Config class"""
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
@@ -18,7 +18,6 @@ class Config:
 app.config.from_object(Config)
 
 
-@babel.localeselector
 def get_locale() -> str:
     """Retrieves the locale for a web page.
 
@@ -28,13 +27,16 @@ def get_locale() -> str:
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
+babel.init_app(app, locale_selector=get_locale)
+
+
 @app.route('/')
 def index() -> str:
-    '''default route
+    """default route
 
     Returns:
         html: homepage
-    '''
+    """
     return render_template('2-index.html')
 
 

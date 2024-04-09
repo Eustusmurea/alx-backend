@@ -29,7 +29,6 @@ app.config.from_object(Config)
 babel = Babel(app)
 
 
-@babel.localeselector
 def get_locale() -> str:
     """
     Gets locale from request object
@@ -39,6 +38,8 @@ def get_locale() -> str:
         return locale
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
+
+babel.init_app(app, locale_selector=get_locale)
 
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
